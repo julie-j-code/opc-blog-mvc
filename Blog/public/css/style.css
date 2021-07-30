@@ -1,0 +1,64 @@
+body
+{
+    font-family: "Arial", sans-serif;
+}
+h1, h2 
+{
+    font-size:1.3em;
+}
+h2 
+{
+    font-size:1em;
+}
+h1, h2, h3
+{
+    text-align:center;
+}
+h3
+{
+    background-color:black;
+    color:white;
+    font-size:0.8em;
+    margin-bottom:0px;
+	padding:10px;
+}
+
+p
+{
+    text-align:center;
+}
+.news p
+{
+    background-color:#CCCCCC;
+    margin-top:0px;
+	padding:10px;
+}
+.news, form
+{
+    width:70%;
+    margin:auto;
+	text-align:center;
+}
+label
+{
+    display:block;
+}
+a
+{
+    text-decoration: none;
+    color: blue;
+}
+
+
+input, label
+{
+	margin:10px;
+
+}
+input:valid {color : green ; }
+:required { 
+  background-color: yellow;
+}
+
+
+
