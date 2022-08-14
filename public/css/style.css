@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    font-weight: 400;
+
+}
+
+h3 {
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+    margin-bottom: 0px;
+}
+
+.news p {
+    background-color: #CCCCCC;
+    margin-top: 0px;
+    padding: 0.5rem;
+}
+
+.news,
+.comments {
+    width: 70%;
+    margin: auto;
+}
+
+.news p a {
+    color: white;
+    margin: 20px 0;
+    display: block;
+}
+
+.comments {
+    text-align: center;
+}
+
+input, textarea{
+    margin: 15px 0;
+}
