@@ -4,19 +4,6 @@
 require_once('model/DbManager.php');
 require_once('model/UsersManager.php');
 
-function login()
-{
-    // $postsManager = new \OpenClassrooms\Blog\Model\PostsManager();
-    // $posts = $postsManager->getPosts();
-
-    require('view/frontend/login.php');
-}
-
-function registration()
-{
-
-    require('view/frontend/userRegisterView.php');
-}
 
 function register($pseudo, $email, $password)
 {
@@ -41,3 +28,16 @@ function register($pseudo, $email, $password)
     // require('view/frontend/userRegisterView.php');
 
 }
+
+function login($pseudo, $password) {
+
+    $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
+
+    // on aurait pu appeler cette fonction getUser côté manager
+    $user = $usersManager->login($pseudo, $password);
+
+    require('view/frontend/userLoginView.php');
+
+
+}
+

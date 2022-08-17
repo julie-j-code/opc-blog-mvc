@@ -1,7 +1,7 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Vous indentifier</h1>
+<h1>Vous enregistrer</h1>
 
 <form action="index.php?action=register" method="post">
         <div>

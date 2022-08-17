@@ -6,9 +6,26 @@ require('controllers/users.php');
 try {
     if (isset($_GET['action'])) {
 
-        if ($_GET['action'] == 'registration') {
-            registration();
-            # code...
+        if ($_GET['action'] == 'login') {
+            if (isset($_POST)) {
+                if (
+                    isset($_POST["pseudo"], $_POST["password"])
+                    && !empty($_POST["pseudo"]) &&  !empty($_POST["password"])
+                ) {
+                    // le formulaire est complet
+                    // on récupère les données en les protégeant
+                    $pseudo = strip_tags($_POST["pseudo"]);
+                    // on ne hash pas le password au niveau du login
+                    $password = $_POST["password"];
+                    // on enregistre en base :
+                    // vas-y manager, enregistre l'utilisateur !!!!
+                    login($pseudo, $password);
+                } else {
+                    // die("Le formulaire est incomplet");
+                    include_once('view/frontend/userLoginView.php');
+                }
+            }
+
         } elseif ($_GET['action'] == 'listPosts') {
             listPosts();
         } elseif ($_GET['action'] == 'post') {
@@ -43,7 +60,7 @@ try {
                         $email = $_POST["email"];
                     }
                     // on va hasher le password
-                    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+                    $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
                     // on enregistre en base :
                     // vas-y manager, enregistre l'utilisateur !!!!
                     register($pseudo, $email, $password);
@@ -51,9 +68,7 @@ try {
                     // die("Le formulaire est incomplet");
                     include_once('view/frontend/userRegisterView.php');
                 }
-
             }
-
         }
     } else {
         listPosts();
