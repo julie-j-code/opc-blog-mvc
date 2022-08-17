@@ -38,6 +38,9 @@ class UsersManager extends DbManager
 
         var_dump($_SESSION);
 
+        // on redirige à ce stade, vers la page d'accueil - ou ultérieurement la page d'édition de profil
+        header("Location: index.php");
+
         return $affectedLines;
     }
 

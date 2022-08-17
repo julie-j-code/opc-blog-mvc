@@ -70,6 +70,30 @@ try {
                 }
             }
         }
+        elseif ($_GET['action'] == 'editProfil') {
+
+            if (isset($_POST)) {
+                if (
+                    isset($_POST["email"], $_POST["pseudo"])
+                    && !empty($_POST["email"]) && !empty($_POST["pseudo"])) {
+                    $pseudo = strip_tags($_POST["pseudo"]);
+                    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+                        die("Cet email n'est pas valable");
+                    } else {
+                        $email = $_POST["email"];
+                    }
+                    
+                } else {
+                    // die("Le formulaire est incomplet");
+                    include_once('view/frontend/updateProfilView.php');
+                }
+            }
+
+
+
+
+            # code...
+        }
     } else {
         listPosts();
     }

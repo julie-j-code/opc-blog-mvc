@@ -20,6 +20,7 @@ function register($pseudo, $email, $password)
     } else if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter cet utilisateur !');
     } else {
+
         // parce que dans notre cas pour le moment, l'index sert de router
         header('Location: index.php?action=register');
         require('view/frontend/userRegisterView.php');
@@ -37,6 +38,7 @@ function login($pseudo, $password) {
     $user = $usersManager->login($pseudo, $password);
 
     require('view/frontend/userLoginView.php');
+
 
 }
 
