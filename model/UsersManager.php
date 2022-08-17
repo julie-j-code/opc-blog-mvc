@@ -18,9 +18,25 @@ class UsersManager extends DbManager
 
     public function register($pseudo, $email, $password)
     {
+
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO users(pseudo, email, password) VALUES(?, ?, ?)');
         $affectedLines = $req->execute(array($pseudo, $email, $password));
+
+        // on récupère l'id du dernier utilisateur inscrit
+        $id = $db->lastInsertId();
+
+        // on démarre une sesssion
+        // on connecte l'utilisateur
+        session_start();
+
+        $_SESSION['user'] = [
+            "id" => $id,
+            "email" => $email,
+            "pseudo" => $pseudo
+        ];
+
+        var_dump($_SESSION);
 
         return $affectedLines;
     }
@@ -34,13 +50,13 @@ class UsersManager extends DbManager
         var_dump(password_verify($password, $user['password']));
 
         if (!$user) {
-            die("L'utilisateur et/ou le mot de passe est incorrecte");
+            die("L'utilisateur et/ou le mot de passe est incorrect");
         }
 
         var_dump($password, $user['password']);
         // à ce stade, on a un user existant
-        if (!password_verify($password,$user['password'])) {
-            die("???");
+        if (!password_verify($password, $user['password'])) {
+            die("L'utilisateur et/ou le mot de passe est incorrect");
         }
 
 
@@ -50,7 +66,7 @@ class UsersManager extends DbManager
         session_start();
         // y stocker les information qu'on souhaite
         $_SESSION['user'] = [
-            "id" => $user["id"],
+            "email" => $user["email"],
             "pseudo" => $user["pseudo"]
         ];
 
@@ -58,6 +74,5 @@ class UsersManager extends DbManager
         header("Location: index.php");
 
         return $user;
-        
     }
 }

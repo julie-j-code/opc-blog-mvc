@@ -21,6 +21,7 @@ foreach ($posts as $post) {
             <a href="index.php?action=post&amp;id=<?= $post['id'] ?>">Commentaires</a>
         </p>
     </div>
+
 <?php
 }
 

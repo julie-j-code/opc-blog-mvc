@@ -38,6 +38,5 @@ function login($pseudo, $password) {
 
     require('view/frontend/userLoginView.php');
 
-
 }
 
