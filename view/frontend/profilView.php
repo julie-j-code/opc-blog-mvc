@@ -1,14 +1,18 @@
 <?php $title = htmlspecialchars($_SESSION['user']['pseudo']); ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<h2><a href="index.php">Retour à la liste des billets</a></h2>
 
-<h2>Edition de mon profil</h2>
+<div class="news">
+
+    <h1>Informations du profil</h1>
+    <h2><a href="index.php">Retour à la liste des billets</a></h2>
 
 
-<p><strong><?= htmlspecialchars($user['pseudo']) ?></p>
-<p><?= nl2br(htmlspecialchars($user['email'])) ?></p>
+
+    <p><strong>Mon pseudo : <?= htmlspecialchars($_SESSION['user']['pseudo']) ?></p>
+    <p>Mon Email : <?= nl2br(htmlspecialchars($_SESSION['user']['email'])) ?></p>
+
+</div>
 
 
 <?php $content = ob_get_clean(); ?>
@@ -16,9 +20,9 @@
 
 <!-- ... -->
 
-<h2>Modifier Mes informations</h2>
+<!-- <h2>Modifier Mes informations</h2>
 
-<form action="index.php?action=updateUser&amp;id=<?= $user['id'] ?>" method="post">
+<form action="index.php?action=profil&amp;id=<?= $_SESSION['user']['id'] ?>" method="post">
     <div>
         <label for="pseudo">Pseudo</label><br />
         <input type="text" id="pseudo" name="pseudo" />
@@ -30,6 +34,6 @@
     <div>
         <input type="submit" />
     </div>
-</form>
+</form> -->
 
 <!-- ... -->

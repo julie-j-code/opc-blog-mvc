@@ -1,4 +1,6 @@
+
 <?php
+session_start();
 require('controllers/comments.php');
 require('controllers/posts.php');
 require('controllers/users.php');
@@ -70,7 +72,7 @@ try {
                 }
             }
         }
-        elseif ($_GET['action'] == 'editProfil') {
+        elseif ($_GET['action'] == 'profil') {
 
             if (isset($_POST)) {
                 if (
@@ -85,7 +87,7 @@ try {
                     
                 } else {
                     // die("Le formulaire est incomplet");
-                    include_once('view/frontend/updateProfilView.php');
+                    include_once('view/frontend/profilView.php');
                 }
             }
 
@@ -98,5 +100,13 @@ try {
         listPosts();
     }
 } catch (Exception $e) {
-    echo 'Erreur : ' . $e->getMessage();
+    if($e->getCode() == 23000){
+        // $error= "Pseudo déjà utilisé";
+        header('Location: index.php?action=register&error="Pseudo déjà utilisé"');
+    }else{
+        echo 'Erreur : ' . $e->getMessage();
+
+    }
+    
+    
 }

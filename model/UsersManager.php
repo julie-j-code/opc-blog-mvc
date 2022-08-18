@@ -23,11 +23,8 @@ class UsersManager extends DbManager
         $req = $db->prepare('INSERT INTO users(pseudo, email, password) VALUES(?, ?, ?)');
         $affectedLines = $req->execute(array($pseudo, $email, $password));
 
-        // on récupère l'id du dernier utilisateur inscrit
-        $id = $db->lastInsertId();
 
-        // on démarre une sesssion
-        // on connecte l'utilisateur
+        $id = $db->lastInsertId();
         session_start();
 
         $_SESSION['user'] = [
@@ -36,10 +33,7 @@ class UsersManager extends DbManager
             "pseudo" => $pseudo
         ];
 
-        var_dump($_SESSION);
-
-        // on redirige à ce stade, vers la page d'accueil - ou ultérieurement la page d'édition de profil
-        header("Location: index.php");
+        // var_dump($_SESSION);
 
         return $affectedLines;
     }
@@ -62,9 +56,6 @@ class UsersManager extends DbManager
             die("L'utilisateur et/ou le mot de passe est incorrect");
         }
 
-
-
-        // ici l'utilisateur et le mot de passe sont corrects
         // on va pouvoir ouvrir la session
         session_start();
         // y stocker les information qu'on souhaite
@@ -73,9 +64,20 @@ class UsersManager extends DbManager
             "pseudo" => $user["pseudo"]
         ];
 
-        // on redirige ici, à ce stade, vers la page d'accueil
-        header("Location: index.php");
+        // on redirige vers la page profil
+        header("Location: index.php?action=profil");
 
         return $user;
+    }
+
+
+
+    public function profil()
+    {
+
+        // on implémentera l'édition plus tard bien que rien de tout ça n'était requis à l'époque...
+
+        // on redirige vers la page profil
+        header("Location: index.php?action=profil");
     }
 }

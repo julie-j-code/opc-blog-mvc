@@ -21,6 +21,11 @@
         </div>
     </form>
 
+    <?php if (isset ($_GET["error"])){
+        $error = $_GET["error"];
+        echo $error;
+} else {$error = "";} ?>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('baseLayout.php'); ?>

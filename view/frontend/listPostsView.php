@@ -1,3 +1,4 @@
+
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
@@ -20,6 +21,7 @@ foreach ($posts as $post) {
             <br />
             <a href="index.php?action=post&amp;id=<?= $post['id'] ?>">Commentaires</a>
         </p>
+        <?= htmlspecialchars($_SESSION['user']['pseudo']) ?>
     </div>
 
 <?php
