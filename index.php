@@ -1,4 +1,3 @@
-
 <?php
 
 session_start();
@@ -8,37 +7,15 @@ require('controllers/users.php');
 
 
 try {
-    if (isset($_GET['action'])) {
-
-        if ($_GET['action'] == 'login') {
-            if (isset($_POST)) {
-                if (
-                    isset($_POST["pseudo"], $_POST["password"])
-                    && !empty($_POST["pseudo"]) &&  !empty($_POST["password"])
-                ) {
-                    // le formulaire est complet
-                    // on récupère les données en les protégeant
-                    $pseudo = strip_tags($_POST["pseudo"]);
-                    // on ne hash pas le password au niveau du login
-                    $password = $_POST["password"];
-                    // on enregistre en base :
-                    // vas-y manager, enregistre l'utilisateur !!!!
-                    login($pseudo, $password);
-                } else {
-                    // die("Le formulaire est incomplet");
-                    include_once('view/frontend/userLoginView.php');
-                }
-            }
-
-        } elseif ($_GET['action'] == 'listPosts') {
-            listPosts();
-        } elseif ($_GET['action'] == 'post') {
+    if (isset($_GET['action']) && $_GET['action'] !== '') {
+        // les actions
+        if ($_GET['action'] === 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 post();
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
-        } elseif ($_GET['action'] == 'addComment') {
+        } elseif ($_GET['action'] === 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['author']) && !empty($_POST['comment'])) {
                     addComment($_GET['id'], $_POST['author'], $_POST['comment']);
@@ -48,8 +25,8 @@ try {
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
-        } elseif ($_GET['action'] == 'register') {
-            // on va écrire toute la logique qu'on utiliserait de manière procédurale  pour vérifier l'existence des données envoyées et les sécuriser
+        } elseif ($_GET['action'] === 'register') {
+
             if (isset($_POST)) {
                 if (
                     isset($_POST["email"], $_POST["pseudo"], $_POST["password"])
@@ -73,51 +50,58 @@ try {
                     include_once('view/frontend/userRegisterView.php');
                 }
             }
-        }
-        elseif ($_GET['action'] == 'profil') {
-           
-                    include_once('view/frontend/profilView.php');
-        }
-        elseif ($_GET['action'] == 'editUser') {
-
+        } elseif ($_GET['action'] === 'login') {
             if (isset($_POST)) {
                 if (
-                    isset($_POST["updatedEmail"], $_POST["updatedPseudo"])
-                    && !empty($_POST["updatedEmail"]) && !empty($_POST["updatedPseudo"])) {
-                    $updatedPseudo = strip_tags($_POST["updatedPseudo"]);
-                    if (!filter_var($_POST["updatedEmail"], FILTER_VALIDATE_EMAIL)) {
-                        die("Cet email n'est pas valable");
-                    } else {
-                        $updatedEmail = $_POST["updatedEmail"];
-                    }
-
-                    editUser($updatedPseudo,$updatedEmail);
-                    
+                    isset($_POST["pseudo"], $_POST["password"])
+                    && !empty($_POST["pseudo"]) &&  !empty($_POST["password"])
+                ) {
+                    // le formulaire est complet
+                    // on récupère les données en les protégeant
+                    $pseudo = strip_tags($_POST["pseudo"]);
+                    // on ne hash pas le password au niveau du login
+                    $password = $_POST["password"];
+                    // on enregistre en base :
+                    // vas-y manager, enregistre l'utilisateur !!!!
+                    login($pseudo, $password);
                 } else {
                     // die("Le formulaire est incomplet");
-                    include_once('view/frontend/editProfilView.php');
+                    include_once('view/frontend/userLoginView.php');
                 }
+            }
+        } elseif ($_GET['action'] === 'editUser') {
 
-                // include_once('view/frontend/profilView.php');
+            include_once('view/frontend/editProfilView.php');
 
+            // si on a soumit le formulaire :
+            // if (isset($POST)) {                
+
+            if (
+                !isset($_POST["updatedEmail"], $_POST["updatedPseudo"])
+                && empty($_POST["updatedEmail"]) && empty($_POST["updatedPseudo"])
+            ) {
+                throw new Exception("Le formulaire est incomplet");
+                // include_once('view/frontend/editProfilView.php');
+            } elseif (!filter_var($_POST["updatedEmail"], FILTER_VALIDATE_EMAIL)) {
+                die("Cet email n'est pas valable");
+
+            } else {
+                $updatedPseudo = strip_tags($_POST["updatedPseudo"]);
+                $updatedEmail = $_POST["updatedEmail"];
+                // et comme la requête va se faire sur la base du pseudo récupéré depuis la session, pseudo unique en base,  on peut se passer de récupérer l'id
+                editUser($updatedPseudo, $updatedEmail);
             }
 
+        // }
 
-
-
-            # code...
+        } elseif ($_GET['action'] === 'profil') {
+            include_once('view/frontend/profilView.php');
+        } else {
+            throw new Exception("La page que vous recherchez n'existe pas.");
         }
     } else {
         listPosts();
     }
-} catch (Exception $e) {
-    if($e->getCode() == 23000){
-        // $error= "Pseudo déjà utilisé";
-        header('Location: index.php?action=register&error="Pseudo déjà utilisé"');
-    }else{
-        echo 'Erreur : ' . $e->getMessage();
-
-    }
-    
-    
+} catch (Exception $e) { // S'il y a eu une erreur, alors...
+    echo 'Erreur : ' . $e->getMessage();
 }

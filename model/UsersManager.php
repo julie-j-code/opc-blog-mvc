@@ -2,6 +2,8 @@
 
 namespace OpenClassrooms\Blog\Model;
 
+use Exception;
+
 require_once("model/DbManager.php");
 
 class UsersManager extends DbManager
@@ -15,6 +17,17 @@ class UsersManager extends DbManager
         $nb_pseudo = $req->fetch();
         return $nb_pseudo['nb_pseudo'];
     }
+
+    // si besoin ce qui compte tenu du fait que pseudo est identifiant unique n'est pas jusqu'ici nécessaire
+
+    // function get_id($pseudo)
+    // {
+    //     $db = $this->dbConnect();
+    //     $req = $db->prepare('SELECT id FROM users WHERE pseudo = ?');
+    //     $req->execute(array($pseudo));
+    //     $user = $req->fetch();
+    //     return $user['id'];
+    // }
 
     public function register($pseudo, $email, $password)
     {
@@ -47,13 +60,13 @@ class UsersManager extends DbManager
 
 
         if (!$user) {
-            die("L'utilisateur et/ou le mot de passe est incorrect");
+            throw new Exception("L'utilisateur et/ou le mot de passe est incorrect");
         }
 
-        var_dump($password, $user['password']);
+        // var_dump($password, $user['password']);
         // à ce stade, on a un user existant
         if (!password_verify($password, $user['password'])) {
-            die("L'utilisateur et/ou le mot de passe est incorrect");
+            throw new Exception("L'utilisateur et/ou le mot de passe est incorrect");
         }
 
         // on va pouvoir ouvrir la session
@@ -81,7 +94,8 @@ class UsersManager extends DbManager
     public function editUser($updatedPseudo, $updatedEmail)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE users SET pseudo=:pseudo, email=:email WHERE id=31');
+        $pseudo = $_SESSION['user']['pseudo'];
+        $req = $db->prepare("UPDATE users SET pseudo=:pseudo, email=:email WHERE pseudo='$pseudo'");
         $req->bindValue(':pseudo', $updatedPseudo);
         $req->bindValue(':email', $updatedEmail);
         $affectedLines = $req->execute();
@@ -89,7 +103,5 @@ class UsersManager extends DbManager
 
         // on redirige vers la page profil
         header("Location: index.php?action=editUser");
-
-        return $affectedLines;
     }
 }

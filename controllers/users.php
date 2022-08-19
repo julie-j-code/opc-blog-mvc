@@ -1,7 +1,7 @@
 <?php
 
 // Chargement des classes
-require_once('model/DbManager.php');
+
 require_once('model/UsersManager.php');
 
 
@@ -41,12 +41,9 @@ function profil()
 function editUser($updatedPseudo, $updatedEmail)
 {
     $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
-    $affectedLines = $usersManager->editUser($updatedPseudo, $updatedEmail);
-    if ($affectedLines === false) {
-        throw new Exception('Impossible d\'ajouter cet utilisateur !');
-    } else {
-        header('Location: index.php');
-    }
 
-    require('view/frontend/editProfilView.php');
+
+    $usersManager->editUser($updatedPseudo, $updatedEmail);
+
+    // require('view/frontend/editProfilView.php');
 }
