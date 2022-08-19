@@ -44,7 +44,7 @@ class UsersManager extends DbManager
         $req = $db->prepare('SELECT * FROM users WHERE pseudo = ?');
         $req->execute(array($pseudo));
         $user = $req->fetch();
-        var_dump(password_verify($password, $user['password']));
+
 
         if (!$user) {
             die("L'utilisateur et/ou le mot de passe est incorrect");
@@ -75,9 +75,21 @@ class UsersManager extends DbManager
     public function profil()
     {
 
-        // on implémentera l'édition plus tard bien que rien de tout ça n'était requis à l'époque...
+        header("Location: index.php?action=profil");
+    }
+
+    public function editUser($updatedPseudo, $updatedEmail)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE users SET pseudo=:pseudo, email=:email WHERE id=31');
+        $req->bindValue(':pseudo', $updatedPseudo);
+        $req->bindValue(':email', $updatedEmail);
+        $affectedLines = $req->execute();
+
 
         // on redirige vers la page profil
-        header("Location: index.php?action=profil");
+        header("Location: index.php?action=editUser");
+
+        return $affectedLines;
     }
 }

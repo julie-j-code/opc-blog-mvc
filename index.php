@@ -1,9 +1,11 @@
 
 <?php
+
 session_start();
 require('controllers/comments.php');
 require('controllers/posts.php');
 require('controllers/users.php');
+
 
 try {
     if (isset($_GET['action'])) {
@@ -73,22 +75,31 @@ try {
             }
         }
         elseif ($_GET['action'] == 'profil') {
+           
+                    include_once('view/frontend/profilView.php');
+        }
+        elseif ($_GET['action'] == 'editUser') {
 
             if (isset($_POST)) {
                 if (
-                    isset($_POST["email"], $_POST["pseudo"])
-                    && !empty($_POST["email"]) && !empty($_POST["pseudo"])) {
-                    $pseudo = strip_tags($_POST["pseudo"]);
-                    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+                    isset($_POST["updatedEmail"], $_POST["updatedPseudo"])
+                    && !empty($_POST["updatedEmail"]) && !empty($_POST["updatedPseudo"])) {
+                    $updatedPseudo = strip_tags($_POST["updatedPseudo"]);
+                    if (!filter_var($_POST["updatedEmail"], FILTER_VALIDATE_EMAIL)) {
                         die("Cet email n'est pas valable");
                     } else {
-                        $email = $_POST["email"];
+                        $updatedEmail = $_POST["updatedEmail"];
                     }
+
+                    editUser($updatedPseudo,$updatedEmail);
                     
                 } else {
                     // die("Le formulaire est incomplet");
-                    include_once('view/frontend/profilView.php');
+                    include_once('view/frontend/editProfilView.php');
                 }
+
+                // include_once('view/frontend/profilView.php');
+
             }
 
 
