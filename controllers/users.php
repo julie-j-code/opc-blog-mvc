@@ -19,7 +19,7 @@ function register($pseudo, $email, $password)
         header('Location: index.php');
     }
 
-    require('view/frontend/userRegisterView.php');
+    // require('view/frontend/userRegisterView.php');
 }
 
 function login($pseudo, $password)
@@ -41,7 +41,6 @@ function profil()
 function editUser($updatedPseudo, $updatedEmail)
 {
     $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
-
 
     $usersManager->editUser($updatedPseudo, $updatedEmail);
 

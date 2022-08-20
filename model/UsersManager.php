@@ -102,6 +102,6 @@ class UsersManager extends DbManager
 
 
         // on redirige vers la page profil
-        header("Location: index.php?action=editUser");
+        header("Location: index.php?action=profil");
     }
 }

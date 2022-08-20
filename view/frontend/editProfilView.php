@@ -6,17 +6,20 @@
 
 <h2>Modifier Mes informations</h2>
 
+<?php
+// echo var_dump(isset($_POST['submit'])) ?>
+
 <form action="index.php?action=editUser" method="post">
     <div>
         <label for="updatedPseudo">Pseudo</label><br />
-        <input type="text" id="updatedPseudo" name="updatedPseudo" />
+        <input type="text" id="updatedPseudo" name="updatedPseudo"  value="<?php echo $_SESSION["user"]["pseudo"] ?>" />
     </div>
     <div>
         <label for="updatedEmail">Email</label><br />
-        <input type="text" id="updatedEmail" name="updatedEmail" />
+        <input type="text" id="updatedEmail" name="updatedEmail" value="<?php echo $_SESSION["user"]["email"] ?>" />
     </div>
     <div>
-        <input type="submit" />
+        <input type="submit" name="submit" />
     </div>
 </form>
 
