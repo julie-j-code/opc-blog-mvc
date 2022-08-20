@@ -10,7 +10,7 @@ function registerUserView(){
 
 function register($pseudo, $email, $password)
 {
-    $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
+    $usersManager = new Model\UsersManager();
     $nb_pseudo = $usersManager->check_pseudo($pseudo);
     $affectedLines = $usersManager->register($pseudo, $email, $password);
     if ($nb_pseudo > 0) {
@@ -32,15 +32,14 @@ function loginUserView(){
 function login($pseudo, $password)
 {
 
-    $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
-    $user = $usersManager->login($pseudo, $password);
-    
+    $usersManager = new Model\UsersManager();
+    $user = $usersManager->login($pseudo, $password);    
 }
 
 function profil()
 {
 
-    $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
+    $usersManager = new Model\UsersManager();
     $user = $usersManager->profil();
     require('view/frontend/profilView.php');
 }
@@ -53,7 +52,7 @@ function editUserView(){
 
 function editUser($updatedPseudo, $updatedEmail)
 {
-    $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
+    $usersManager = new Model\UsersManager();
 
     $usersManager->editUser($updatedPseudo, $updatedEmail);
 

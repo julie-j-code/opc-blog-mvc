@@ -1,4 +1,3 @@
-
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
@@ -8,14 +7,13 @@
 
 <?php
 foreach ($posts as $post) {
-    
 ?>
     <div class="news">
         <h3>
             <?= htmlspecialchars($post['title']) ?>
             <em>le <?= $post['creation_date_fr'] ?></em>
         </h3>
-        
+
         <p>
             <?= nl2br(htmlspecialchars($post['content'])) ?>
             <br />
@@ -29,6 +27,24 @@ foreach ($posts as $post) {
 
 ?>
 
-<?php $content = ob_get_clean(); ?>
+<div class="news">
+    <h2>Ajouter un Post</h2>
 
+    <form action="index.php?action=addPost" method="post">
+        <div>
+            <label for="title">Titre</label><br />
+            <input type="text" id="title" name="title" />
+        </div>
+        <div>
+            <label for="content">Contenu</label><br />
+            <textarea id="content" name="content"></textarea>
+        </div>
+        <div>
+            <input type="submit" name="newPost" />
+        </div>
+    </form>
+</div>
+
+
+<?php $content = ob_get_clean(); ?>
 <?php require('baseLayout.php'); ?>

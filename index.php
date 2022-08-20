@@ -24,14 +24,23 @@ try {
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
+        } elseif ($_GET['action'] === 'addPost') {
+            if (isset($_POST['newPost'])) {
+                if (
+                    !isset($_POST["title"], $_POST["content"])
+                    || empty($_POST["title"]) || empty($_POST["content"])
+                ) {
+                    throw new Exception("Le formulaire est incomplet");
+                } else {
+                    $title = strip_tags($_POST["title"]);
+                    $content = $_POST["content"];
+                    addPost($title, $content);
+                }
+            }
+        } elseif ($_GET['action'] === 'profil') {
+            include_once('view/frontend/profilView.php');
         } elseif ($_GET['action'] === 'register') {
-
             registerUserView();
-            // include_once('view/frontend/userRegisterView.php');
-
-            // si on a soumit le formulaire, parce qu'il faut bien afficher la  page avant de vérifier l'état du formulaire :
-
-
             if (isset($_POST['register'])) {
                 if (
                     isset($_POST["email"], $_POST["pseudo"], $_POST["password"])
@@ -48,7 +57,6 @@ try {
                     // on va hasher le password
                     $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
                     // on enregistre en base :
-                    // vas-y manager, enregistre l'utilisateur !!!!
                     register($pseudo, $email, $password);
                 } else {
                     throw new Exception("Le formulaire est incomplet");
@@ -56,10 +64,7 @@ try {
                 }
             }
         } elseif ($_GET['action'] === 'login') {
-
             loginUserView();
-
-            // si on a soumit le formulaire, parce qu'il faut bien afficher la  page avant de vérifier l'état du formulaire :
             if (isset($_POST['login'])) {
                 if (
                     isset($_POST["pseudo"], $_POST["password"])
@@ -71,7 +76,6 @@ try {
                     // on ne hash pas le password au niveau du login, surtout pas
                     $password = $_POST["password"];
                     // on enregistre en base :
-                    // vas-y manager, enregistre l'utilisateur !!!!
                     login($pseudo, $password);
                 } else {
                     throw new Exception("Le formulaire est incomplet");
@@ -79,12 +83,8 @@ try {
                 }
             }
         } elseif ($_GET['action'] === 'editUser') {
-
             editUserView();
-
-            // si on a soumit le formulaire, parce qu'il faut bien afficher la  page avant de vérifier l'état du formulaire :
             if (isset($_POST['submit'])) {
-
                 if (
                     !isset($_POST["updatedEmail"], $_POST["updatedPseudo"])
                     || empty($_POST["updatedEmail"]) || empty($_POST["updatedPseudo"])
@@ -99,8 +99,6 @@ try {
                     editUser($updatedPseudo, $updatedEmail);
                 }
             }
-        } elseif ($_GET['action'] === 'profil') {
-            include_once('view/frontend/profilView.php');
         } else {
             throw new Exception("La page que vous recherchez n'existe pas.");
         }

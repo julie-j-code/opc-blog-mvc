@@ -1,6 +1,6 @@
 <?php
 
-namespace OpenClassrooms\Blog\Model;
+namespace Model;
 
 require_once("model/DbManager.php");
 
@@ -13,7 +13,7 @@ class PostsManager extends DbManager
         $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC LIMIT 0, 5');
 
         // pourquoi on ne l'avait pas fait à l'époque ??? 
-        $posts=$req->fetchAll();
+        $posts = $req->fetchAll();
 
         return $posts;
     }
@@ -26,5 +26,14 @@ class PostsManager extends DbManager
         $post = $req->fetch();
 
         return $post;
+    }
+
+    public function addPost($title, $content)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO posts(title, content, creation_date) VALUES(?, ?, NOW())');
+        $req->execute(array($title, $content));
+        header('Location: index.php');
+        $req->fetch();
     }
 }

@@ -6,7 +6,7 @@ require_once('model/CommentsManager.php');
 
 function addComment($postId, $author, $comment)
 {
-    $commentsManager = new \OpenClassrooms\Blog\Model\CommentsManager();
+    $commentsManager = new Model\CommentsManager();
 
     $affectedLines = $commentsManager->postComment($postId, $author, $comment);
 
