@@ -26,7 +26,8 @@ try {
             }
         } elseif ($_GET['action'] === 'register') {
 
-            include_once('view/frontend/userRegisterView.php');
+            registerUserView();
+            // include_once('view/frontend/userRegisterView.php');
 
             // si on a soumit le formulaire, parce qu'il faut bien afficher la  page avant de vérifier l'état du formulaire :
 
@@ -56,7 +57,7 @@ try {
             }
         } elseif ($_GET['action'] === 'login') {
 
-            include_once('view/frontend/userLoginView.php');
+            loginUserView();
 
             // si on a soumit le formulaire, parce qu'il faut bien afficher la  page avant de vérifier l'état du formulaire :
             if (isset($_POST['login'])) {
@@ -79,7 +80,7 @@ try {
             }
         } elseif ($_GET['action'] === 'editUser') {
 
-            include_once('view/frontend/editProfilView.php');
+            editUserView();
 
             // si on a soumit le formulaire, parce qu'il faut bien afficher la  page avant de vérifier l'état du formulaire :
             if (isset($_POST['submit'])) {

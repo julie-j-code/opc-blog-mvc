@@ -4,6 +4,9 @@
 
 require_once('model/UsersManager.php');
 
+function registerUserView(){
+    require('view/frontend/userRegisterView.php');
+}
 
 function register($pseudo, $email, $password)
 {
@@ -19,7 +22,11 @@ function register($pseudo, $email, $password)
         header('Location: index.php');
     }
 
-    // require('view/frontend/userRegisterView.php');
+    
+}
+
+function loginUserView(){
+    require('view/frontend/userLoginView.php');
 }
 
 function login($pseudo, $password)
@@ -27,7 +34,7 @@ function login($pseudo, $password)
 
     $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
     $user = $usersManager->login($pseudo, $password);
-    require('view/frontend/userLoginView.php');
+    
 }
 
 function profil()
@@ -36,6 +43,12 @@ function profil()
     $usersManager = new \OpenClassrooms\Blog\Model\UsersManager();
     $user = $usersManager->profil();
     require('view/frontend/profilView.php');
+}
+
+function editUserView(){
+
+    require('view/frontend/editProfilView.php');
+
 }
 
 function editUser($updatedPseudo, $updatedEmail)
