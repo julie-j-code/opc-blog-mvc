@@ -100,6 +100,10 @@ class UsersManager extends DbManager
         $req->bindValue(':email', $updatedEmail);
         $affectedLines = $req->execute();
 
+        $_SESSION['user']['pseudo'] = $updatedPseudo;
+        $_SESSION['user']['email'] = $updatedEmail;
+        // session_destroy();
+
 
         // on redirige vers la page profil
         header("Location: index.php?action=profil");
