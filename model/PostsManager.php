@@ -36,4 +36,22 @@ class PostsManager extends DbManager
         header('Location: index.php');
         $req->fetch();
     }
+
+    public function editPost($title, $content, $id){
+
+        $db = $this->dbConnect();
+        $req = $db->prepare(
+            'UPDATE posts SET title = ?, content = ? WHERE id = ?'
+        );
+        $affectedLines = $req->execute([$title, $content, $id]);
+
+        // equivalent, plus verbeux
+        // $req = $db->prepare("UPDATE posts SET title=:title, content=:content WHERE id=:id ");
+        // $req->bindValue(':title', $title);
+        // $req->bindValue(':content', $content);
+        // $affectedLines=$req->execute();
+
+        return $affectedLines;
+
+    }
 }

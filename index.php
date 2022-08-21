@@ -37,6 +37,29 @@ try {
                     addPost($title, $content);
                 }
             }
+        } elseif ($_GET['action'] === 'editPost') {
+
+            // si on a bien récupéré l'id on peut afficher la page du formulaire
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                editPostView();
+            }
+                // si le formulaire a été soumis, traitement habituel
+                var_dump(isset($_POST['editPost']));
+                if (isset($_POST['editPost'])) {
+                    // if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    if (
+                        !isset($_POST["updatedTitle"], $_POST["updatedContent"])
+                        || empty($_POST["updatedTitle"]) || empty($_POST["updatedContent"])
+                    ) {
+                        throw new Exception("Le formulaire est incomplet");
+                    }
+                    $id = $_POST["id"];
+                    $title = strip_tags($_POST["updatedTitle"]);
+                    $content = $_POST["updatedContent"];
+
+                    editPost($title, $content, $id);
+                
+            }
         } elseif ($_GET['action'] === 'profil') {
             include_once('view/frontend/profilView.php');
         } elseif ($_GET['action'] === 'register') {

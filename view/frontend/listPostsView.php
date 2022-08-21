@@ -11,7 +11,7 @@ foreach ($posts as $post) {
     <div class="news">
         <h3>
             <?= htmlspecialchars($post['title']) ?>
-            <em>le <?= $post['creation_date_fr'] ?></em>
+            <em>le <?= $post['creation_date_fr'] ?> - id <?= $post['id'] ?></em>
         </h3>
 
         <p>
@@ -39,6 +39,7 @@ foreach ($posts as $post) {
             <label for="content">Contenu</label><br />
             <textarea id="content" name="content"></textarea>
         </div>
+
         <div>
             <input type="submit" name="newPost" />
         </div>

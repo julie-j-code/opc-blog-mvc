@@ -14,6 +14,8 @@
         <?= nl2br(htmlspecialchars($post['content'])) ?>
     </p>
 </div>
+<!-- c'est pour le fun. puisqu'il n'était pas prévu d'auteur ce qui n'est pas cohérent et empêcherait l'édition par quiconque d'autre que l'admin du blog -->
+<h3><a href="index.php?action=editPost&amp;id=<?= $post['id'] ?>">Editer le billet <?= $post['id'] ?></a></h3>
 
 <div class="comments">
 
@@ -42,8 +44,6 @@
     }
     ?>
     <?php $content = ob_get_clean(); ?>
-
-
 </div>
 
 
