@@ -17,10 +17,10 @@
 <!-- c'est pour le fun. puisqu'il n'était pas prévu d'auteur ce qui n'est pas cohérent et empêcherait l'édition par quiconque d'autre que l'admin du blog -->
 <h3><a href="index.php?action=editPost&amp;id=<?= $post['id'] ?>">Editer le billet <?= $post['id'] ?></a></h3>
 
-<div class="comments">
 
-    <h2>Commentaires</h2>
+<h2>Commentaires</h2>
 
+<div class="news">
     <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
         <div>
             <label for="author">Auteur</label><br />
@@ -43,9 +43,6 @@
     <?php
     }
     ?>
-    <?php $content = ob_get_clean(); ?>
 </div>
-
-
-
+<?php $content = ob_get_clean(); ?>
 <?php require('baseLayout.php'); ?>

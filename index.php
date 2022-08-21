@@ -44,7 +44,7 @@ try {
                 editPostView();
             }
                 // si le formulaire a été soumis, traitement habituel
-                var_dump(isset($_POST['editPost']));
+                // var_dump(isset($_POST['editPost']));
                 if (isset($_POST['editPost'])) {
                     // if (isset($_GET['id']) && $_GET['id'] > 0) {
                     if (

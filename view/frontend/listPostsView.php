@@ -19,7 +19,6 @@ foreach ($posts as $post) {
             <br />
             <a href="index.php?action=post&amp;id=<?= $post['id'] ?>">Commentaires</a>
         </p>
-        <?= htmlspecialchars($_SESSION['user']['pseudo']) ?>
     </div>
 
 <?php
@@ -27,9 +26,10 @@ foreach ($posts as $post) {
 
 ?>
 
-<div class="news">
-    <h2>Ajouter un Post</h2>
 
+<h2>Ajouter un Post</h2>
+
+<div class="news">
     <form action="index.php?action=addPost" method="post">
         <div>
             <label for="title">Titre</label><br />

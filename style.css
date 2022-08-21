@@ -44,6 +44,8 @@ input, textarea{
     margin: 15px 0;
 }
 
-.news input{padding: 10px; background-color:blueviolet ;}
+.news input{padding: 5px; background-color:#CCCCCC ;}
+
+.news input[type=submit]{padding: 10px; background-color:green ; border-radius: 5px; border: lightgray; color: white;}
 
 input.hidden{visibility: hidden;}

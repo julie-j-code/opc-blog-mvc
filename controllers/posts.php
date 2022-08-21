@@ -48,7 +48,7 @@ function editPost($title, $content, $id)
     $affectedLines=$postsManager->editPost($title, $content, $id);
 
     // pas normal ici de ne pas avoir le CSS sans ça. A revoir
-    header('Location: index.php');
+    // header('Location: index.php');
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
