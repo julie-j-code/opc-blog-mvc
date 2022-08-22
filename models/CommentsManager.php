@@ -1,8 +1,6 @@
 <?php
 
-namespace Model;
-
-require_once("model/DbManager.php");
+require_once("models/DbManager.php");
 
 class CommentsManager extends DbManager
 {
@@ -11,7 +9,6 @@ class CommentsManager extends DbManager
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE post_id = ? ORDER BY comment_date DESC');
         $req->execute(array($postId));
-        // pourquoi on ne l'avait pas fait à l'époque - et pourquoi la correction aujourd'hui disponible en ligne n'utilise pas fetchAll - je ne comprends pas. Quoi qu'il en soit, on change ça... 
         $comments=$req->fetchAll();
 
         return $comments;

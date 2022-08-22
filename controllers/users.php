@@ -1,8 +1,7 @@
 <?php
 
 // Chargement des classes
-
-require_once('model/UsersManager.php');
+require_once('models/UsersManager.php');
 
 function registerUserView(){
     require('view/frontend/userRegisterView.php');
@@ -10,7 +9,7 @@ function registerUserView(){
 
 function register($pseudo, $email, $password)
 {
-    $usersManager = new Model\UsersManager();
+    $usersManager = new UsersManager();
     $nb_pseudo = $usersManager->check_pseudo($pseudo);
     $affectedLines = $usersManager->register($pseudo, $email, $password);
     if ($nb_pseudo > 0) {
@@ -32,14 +31,14 @@ function loginUserView(){
 function login($pseudo, $password)
 {
 
-    $usersManager = new Model\UsersManager();
+    $usersManager = new UsersManager();
     $user = $usersManager->login($pseudo, $password);    
 }
 
 function profil()
 {
 
-    $usersManager = new Model\UsersManager();
+    $usersManager = new UsersManager();
     $user = $usersManager->profil();
     require('view/frontend/profilView.php');
 }
@@ -52,7 +51,7 @@ function editUserView(){
 
 function editUser($updatedPseudo, $updatedEmail)
 {
-    $usersManager = new Model\UsersManager();
+    $usersManager = new UsersManager();
 
     $usersManager->editUser($updatedPseudo, $updatedEmail);
 

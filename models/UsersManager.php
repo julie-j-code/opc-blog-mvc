@@ -1,14 +1,10 @@
 <?php
 
-namespace Model;
-
-use Exception;
-
-require_once("model/DbManager.php");
+require_once("models/DbManager.php");
 
 class UsersManager extends DbManager
 {
-
+    public DbManager $connect;
     function check_pseudo($pseudo)
     {
         $db = $this->dbConnect();
@@ -17,17 +13,6 @@ class UsersManager extends DbManager
         $nb_pseudo = $req->fetch();
         return $nb_pseudo['nb_pseudo'];
     }
-
-    // si besoin ce qui compte tenu du fait que pseudo est identifiant unique n'est pas jusqu'ici nécessaire
-
-    // function get_id($pseudo)
-    // {
-    //     $db = $this->dbConnect();
-    //     $req = $db->prepare('SELECT id FROM users WHERE pseudo = ?');
-    //     $req->execute(array($pseudo));
-    //     $user = $req->fetch();
-    //     return $user['id'];
-    // }
 
     public function register($pseudo, $email, $password)
     {
@@ -85,8 +70,7 @@ class UsersManager extends DbManager
 
 
 
-    public function profil()
-    {
+    public function profil()    {
 
         header("Location: index.php?action=profil");
     }

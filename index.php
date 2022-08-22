@@ -1,9 +1,10 @@
 <?php
 
 session_start();
-require('controllers/comments.php');
-require('controllers/posts.php');
-require('controllers/users.php');
+
+require('./controllers/comments.php');
+require('./controllers/posts.php');
+require('./controllers/users.php');
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
@@ -38,7 +39,6 @@ try {
                 }
             }
         } elseif ($_GET['action'] === 'editPost') {
-
             // si on a bien récupéré l'id on peut afficher la page du formulaire
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 editPostView();
@@ -56,7 +56,6 @@ try {
                     $id = $_POST["id"];
                     $title = strip_tags($_POST["updatedTitle"]);
                     $content = $_POST["updatedContent"];
-
                     editPost($title, $content, $id);
                 
             }
@@ -118,7 +117,6 @@ try {
                 } else {
                     $updatedPseudo = strip_tags($_POST["updatedPseudo"]);
                     $updatedEmail = $_POST["updatedEmail"];
-                    // et comme la requête va se faire sur la base du pseudo récupéré depuis la session, pseudo unique en base,  on peut se passer de récupérer l'id
                     editUser($updatedPseudo, $updatedEmail);
                 }
             }

@@ -1,7 +1,5 @@
 <?php
 
-namespace Model;
-
 class DbManager
 {
     protected function dbConnect()

@@ -1,12 +1,12 @@
 <?php
 
 // Chargement des classes
-// require_once('model/PostManager.php');
-require_once('model/CommentsManager.php');
+require_once('models/PostsManager.php');
+require_once('models/CommentsManager.php');
 
 function addComment($postId, $author, $comment)
 {
-    $commentsManager = new Model\CommentsManager();
+    $commentsManager = new CommentsManager;
 
     $affectedLines = $commentsManager->postComment($postId, $author, $comment);
 
