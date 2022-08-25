@@ -1,7 +1,7 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Vous indentifier</h1>
+<h1>Vous identifier</h1>
 <div class="news">
     <form action="index.php?action=login" method="post">
         <div>

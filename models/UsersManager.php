@@ -4,8 +4,8 @@ require_once("models/DbManager.php");
 
 class UsersManager extends DbManager
 {
-    public DbManager $connect;
-    function check_pseudo($pseudo)
+
+    public function check_pseudo($pseudo)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT COUNT(*) AS nb_pseudo FROM users WHERE pseudo = ?');
@@ -13,6 +13,7 @@ class UsersManager extends DbManager
         $nb_pseudo = $req->fetch();
         return $nb_pseudo['nb_pseudo'];
     }
+
 
     public function register($pseudo, $email, $password)
     {
@@ -43,7 +44,6 @@ class UsersManager extends DbManager
         $req->execute(array($pseudo));
         $user = $req->fetch();
 
-
         if (!$user) {
             throw new Exception("L'utilisateur et/ou le mot de passe est incorrect");
         }
@@ -54,12 +54,13 @@ class UsersManager extends DbManager
             throw new Exception("L'utilisateur et/ou le mot de passe est incorrect");
         }
 
-        // on va pouvoir ouvrir la session
+        // on va pouvoir ouvrir la session dont l'id est indispensable au fonctionnement du chat en AJAX
         session_start();
         // y stocker les information qu'on souhaite
         $_SESSION['user'] = [
             "email" => $user["email"],
-            "pseudo" => $user["pseudo"]
+            "pseudo" => $user["pseudo"],
+            "id" => $user["id"]
         ];
 
         // on redirige vers la page profil
@@ -70,7 +71,8 @@ class UsersManager extends DbManager
 
 
 
-    public function profil()    {
+    public function profil()
+    {
 
         header("Location: index.php?action=profil");
     }
@@ -92,4 +94,5 @@ class UsersManager extends DbManager
         // on redirige vers la page profil
         header("Location: index.php?action=profil");
     }
+
 }

@@ -1,9 +1,7 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
-<h2>Edition du billet <?= $_GET['id'] ?></h2>
-
+<h1>Edition du billet <?= $_GET['id'] ?></h1>
 
 <div class="news">
 

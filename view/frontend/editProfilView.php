@@ -2,9 +2,7 @@
 
 <?php ob_start(); ?>
 
-<!-- ... -->
-
-<h2>Modifier Mes informations</h2>
+<h1>Modifier Mes informations</h1>
 <div class="news">
 
     <?php

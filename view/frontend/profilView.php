@@ -2,13 +2,10 @@
 
 <?php ob_start(); ?>
 
+<h1>Informations du profil <?= htmlspecialchars($_SESSION['user']['id']) ?></h1>
+<h2><a href="index.php">Retour à la liste des billets</a></h2>
+
 <div class="news">
-
-    <h1>Informations du profil</h1>
-    <h2><a href="index.php">Retour à la liste des billets</a></h2>
-
-
-
     <p><strong>Mon pseudo : <?= htmlspecialchars($_SESSION['user']['pseudo']) ?></p>
     <p>Mon Email : <?= nl2br(htmlspecialchars($_SESSION['user']['email'])) ?></p>
 

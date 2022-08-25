@@ -4,7 +4,6 @@
 <h1>Mon super blog !</h1>
 <h2>Derniers billets du blog :</h2>
 
-
 <?php
 foreach ($posts as $post) {
 ?>
